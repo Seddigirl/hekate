@@ -441,28 +441,28 @@ DPRINTF("decrypted and unpacked pkg1\n");
 	//se_key_acc_ctrl(15, 0xFF);
 
     switch (ctxt.pkg1_id->kb) {
-		case KB_FIRMWARE_VERSION_100_200:
+        case KB_FIRMWARE_VERSION_100_200:
             se_key_acc_ctrl(12, 0xFF);
             se_key_acc_ctrl(13, 0xFF);
-		case KB_FIRMWARE_VERSION_300:
+        case KB_FIRMWARE_VERSION_300:
             se_key_acc_ctrl(12, 0xFF);
             se_key_acc_ctrl(13, 0xFF);
-		case KB_FIRMWARE_VERSION_301:
-			se_key_acc_ctrl(12, 0xFF);
-			se_key_acc_ctrl(13, 0xFF);
-		break;
-		default:
-		case KB_FIRMWARE_VERSION_400:
+        case KB_FIRMWARE_VERSION_301:
             se_key_acc_ctrl(12, 0xFF);
             se_key_acc_ctrl(13, 0xFF);
-            se_key_acc_ctrl(14, 0xFF);
-            se_key_acc_ctrl(15, 0xFF);
-		case KB_FIRMWARE_VERSION_500:
+        break;
+        default:
+        case KB_FIRMWARE_VERSION_400:
             se_key_acc_ctrl(12, 0xFF);
             se_key_acc_ctrl(13, 0xFF);
             se_key_acc_ctrl(14, 0xFF);
             se_key_acc_ctrl(15, 0xFF);
-		break;
+        case KB_FIRMWARE_VERSION_500:
+            se_key_acc_ctrl(12, 0xFF);
+            se_key_acc_ctrl(13, 0xFF);
+            se_key_acc_ctrl(14, 0xFF);
+            se_key_acc_ctrl(15, 0xFF);
+        break;
     }
 
 	//Clear 'BootConfig'.
