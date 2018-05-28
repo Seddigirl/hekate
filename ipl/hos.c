@@ -68,10 +68,10 @@ static const u8 console_keyseed[0x10] =
 static const u8 key8_keyseed[] =
 	{ 0xFB, 0x8B, 0x6A, 0x9C, 0x79, 0x00, 0xC8, 0x49, 0xEF, 0xD2, 0x4D, 0x85, 0x4D, 0x30, 0xA0, 0xC7 };
 
-static const u8 master_keyseed_4xx[0x10] = 
+static const u8 master_keyseed_4xx[0x10] =
 	{ 0x2D, 0xC1, 0xF4, 0x8D, 0xF3, 0x5B, 0x69, 0x33, 0x42, 0x10, 0xAC, 0x65, 0xDA, 0x90, 0x46, 0x66 };
 
-static const u8 console_keyseed_4xx[0x10] = 
+static const u8 console_keyseed_4xx[0x10] =
 	{ 0x0C, 0x91, 0x09, 0xDB, 0x93, 0x93, 0x07, 0x81, 0x07, 0x3C, 0xC4, 0x16, 0x22, 0x7C, 0x6C, 0x28 };
 
 
@@ -165,7 +165,7 @@ int keygen(u8 *keyblob, u32 kb, void *tsec_fw)
 		break;
 	}
 
-	// Package2 key 
+	// Package2 key
 	se_key_acc_ctrl(0x08, 0x15);
 	se_aes_unwrap_key(0x08, 0x0C, key8_keyseed);
 }
@@ -259,7 +259,7 @@ DPRINTF("pkg2 size on emmc is %08X\n", pkg2_size);
 DPRINTF("pkg2 size aligned is %08X\n", pkg2_size_aligned);
 	ctxt->pkg2 = malloc(pkg2_size_aligned);
 	ctxt->pkg2_size = pkg2_size;
-	nx_emmc_part_read(&storage, pkg2_part, 0x4000 / NX_EMMC_BLOCKSIZE, 
+	nx_emmc_part_read(&storage, pkg2_part, 0x4000 / NX_EMMC_BLOCKSIZE,
 		pkg2_size_aligned / NX_EMMC_BLOCKSIZE, ctxt->pkg2);
 
 	res = 1;
@@ -387,13 +387,13 @@ DPRINTF("decrypted and unpacked pkg1\n");
 	{
 		//Else we patch it to allow for an unsigned package2.
 		patch_t *secmon_patchset = ctxt.pkg1_id->secmon_patchset;
-		
+
 		if (secmon_patchset != NULL) {
 			for (u32 i = 0; secmon_patchset[i].off != 0xFFFFFFFF; i++)
 				*(vu32 *)(ctxt.pkg1_id->secmon_base + secmon_patchset[i].off) = secmon_patchset[i].val;
 
 			DPRINTF("loaded warmboot.bin and secmon\n");
-			
+
 			//Read package2.
 			if (!_read_emmc_pkg2(&ctxt))
 				return 0;
@@ -406,7 +406,7 @@ DPRINTF("decrypted and unpacked pkg1\n");
 			pkg2_parse_kips(&kip1_info, pkg2_hdr);
 
 			DPRINTF("parsed ini1\n");
-			
+
 			//Use the kernel included in package2 in case we didn't load one already.
 			if (!ctxt.kernel)
 			{
@@ -435,11 +435,11 @@ DPRINTF("decrypted and unpacked pkg1\n");
 	se_aes_key_clear(11);
 	//se_aes_key_clear(13);
 	//se_key_acc_ctrl(10, 0xFF);
-	se_key_acc_ctrl(12, 0xFF);
-	se_key_acc_ctrl(13, 0xFF);
-	se_key_acc_ctrl(14, 0xFF);
-	se_key_acc_ctrl(15, 0xFF);
-    
+	//se_key_acc_ctrl(12, 0xFF);
+	//se_key_acc_ctrl(13, 0xFF);
+	//se_key_acc_ctrl(14, 0xFF);
+	//se_key_acc_ctrl(15, 0xFF);
+
     switch (ctxt.pkg1_id->kb) {
 		case KB_FIRMWARE_VERSION_100_200:
             se_key_acc_ctrl(12, 0xFF);
